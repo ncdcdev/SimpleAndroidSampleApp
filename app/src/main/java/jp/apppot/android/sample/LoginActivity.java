@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mHandler = new Handler();
         initAppInfo();
+        createDatabase();
     }
 
     private void initAppInfo() {
