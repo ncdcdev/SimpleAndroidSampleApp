@@ -24,7 +24,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/AppPotSDK-3.2.0.jar')
+    compile files('libs/AppPotSDK-3.2.1.jar')
     compile files('libs/gson-2.2.4.jar')
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'cz.msebera.android:httpclient:4.4.1.2'
