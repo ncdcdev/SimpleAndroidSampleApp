@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mHandler = new Handler();
         initAppInfo();
+        createDatabase();
     }
 
     private void initAppInfo() {
@@ -138,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         List<APObject> tables = new ArrayList<>();
         tables.add(new Task());
 
+        // isReset=falseにすることで、既にあるときにはデータベースは作られません
         boolean isResetDatabase = false;
         int DATABASE_VERSION = 1;
 
