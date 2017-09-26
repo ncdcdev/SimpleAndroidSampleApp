@@ -78,5 +78,7 @@ public class CompanyListActivity extends AppCompatActivity {
         company.companyCode = 111;
         company.companyName = "aaaa";
         company.save();
+
+        refreshList();
     }
 }
