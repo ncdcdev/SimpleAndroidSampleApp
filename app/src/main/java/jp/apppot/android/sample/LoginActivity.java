@@ -141,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.i(this.getLocalClassName(), "createDB:start");
 
         List<APObject> tables = new ArrayList<>();
+        tables.add(new Company());
+        tables.add(new Employee());
         tables.add(new Task());
 
         // isReset=falseにすることで、既にあるときにはデータベースは作られません
