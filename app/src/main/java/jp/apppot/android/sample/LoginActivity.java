@@ -1,5 +1,6 @@
 package jp.apppot.android.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -118,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("login", "info.lastName=" + info.lastName);
 
                 handleToastMessage("Login successed.");
+
+                // メニュー画面へ遷移
+                goMenu();
             }
 
             @Override
@@ -217,6 +221,11 @@ public class LoginActivity extends AppCompatActivity {
 
             login(email, password);
         }
+    }
+
+    private void goMenu() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
     }
 }
 
