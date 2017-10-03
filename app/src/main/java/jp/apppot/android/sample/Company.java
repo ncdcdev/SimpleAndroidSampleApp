@@ -18,7 +18,9 @@ public class Company extends APObject {
     }
 
     public void save() {
-        APEntityManager em = APEntityManager.getInstance();
-        em.saveObject(this);
+        APEntityManager.getInstance().saveObject(this);
+    }
+    public void delete() {
+        APEntityManager.getInstance().deleteObject(this);
     }
 }
