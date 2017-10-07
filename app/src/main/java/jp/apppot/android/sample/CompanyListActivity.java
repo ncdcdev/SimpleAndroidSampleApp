@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class CompanyListActivity extends AppCompatActivity {
 
     private Context mContext;
     private List<Company> companyList;
+    private ListView listView;
     Handler handler = new Handler();
 
     @Override
@@ -38,11 +38,13 @@ public class CompanyListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addComnany();
+                addCompany();
             }
         });
 
         mContext = this.getApplicationContext();
+
+        listView = (ListView) findViewById(R.id.company_list_view);
         refreshList();
     }
 
@@ -60,36 +62,32 @@ public class CompanyListActivity extends AppCompatActivity {
                 List<APObject> objects = map.get("Company");
                 companyList = new ArrayList<>();
 
-                final List<String> names = new ArrayList<String>();
-
                 for(APObject object: objects) {
                     Company company = (Company) object;
                     companyList.add(company);
-
-                    String name = company.companyName;
-                    names.add(name);
                 }
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                    ListView listView = (ListView) findViewById(R.id.company_list_view);
-                    listView.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, names));
-                    listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+                        CompanyAdapter adapter = new CompanyAdapter(mContext);
+                        adapter.setCompanyList(companyList);
+                        listView.setAdapter(adapter);
+                        listView.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            ListView listView = (ListView) parent;
-                            // クリックされたアイテムを取得します
-                            String item = (String) listView.getItemAtPosition(position);
-                            Logger.d(item);
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view,
+                                                    int position, long id) {
+                                ListView listView = (ListView) parent;
+                                // クリックされたアイテムを取得します
+                                Company company = (Company) listView.getItemAtPosition(position);
+                                Logger.d(company.companyCode + "/" + company.companyName);
 
-                            Intent intent = new Intent(mContext, CompanyDetailActivity.class);
-                            intent.putExtra("objectId", companyList.get(position).objectId);
-                            startActivity(intent);
-                        }
-                    });
+                                Intent intent = new Intent(mContext, CompanyDetailActivity.class);
+                                intent.putExtra("objectId", company.objectId);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 });
             }
@@ -102,7 +100,7 @@ public class CompanyListActivity extends AppCompatActivity {
     }
 
 
-    private void addComnany() {
+    private void addCompany() {
         Intent intent = new Intent(mContext, CompanyDetailActivity.class);
         intent.putExtra("objectId", "");
         startActivity(intent);
