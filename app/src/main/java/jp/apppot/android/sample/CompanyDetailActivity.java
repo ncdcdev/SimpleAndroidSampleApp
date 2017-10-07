@@ -18,12 +18,10 @@ public class CompanyDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company_detail);
         String objectId = getIntent().getStringExtra("objectId");
 
-        if (objectId == null) {
-            finish();
-        }
-
         company = new Company();
-        company = company.getByObjectId(objectId);
+        if (objectId != null && objectId.length() != 0) {
+            company = company.getByObjectId(objectId);
+        }
 
         ActivityCompanyDetailBinding binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_company_detail);

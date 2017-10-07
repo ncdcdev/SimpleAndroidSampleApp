@@ -102,13 +102,9 @@ public class CompanyListActivity extends AppCompatActivity {
     }
 
 
-
     private void addComnany() {
-        Company company = new Company();
-        company.companyCode = 111;
-        company.companyName = "aaaa";
-        company.save();
-
-        refreshList();
+        Intent intent = new Intent(mContext, CompanyDetailActivity.class);
+        intent.putExtra("objectId", "");
+        startActivity(intent);
     }
 }
